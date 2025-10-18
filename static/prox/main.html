@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PeteZah | Proxy</title>
+    <title>JamesProxy | Proxy</title>
     <link rel="icon" href="storage/images/logo-png-removebg-preview.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <meta property="og:title" content="PeteZah | Proxy">
+    <meta property="og:title" content="JamesProxy | Proxy">
     <meta property="og:description" content="Next-gen proxy browsing">
     <meta property="og:image" content="/storage/images/logo-png-removebg-preview.png">
-    <meta name="keywords" content="PeteZah Proxy, bypass restrictions, web proxy">
+    <meta name="keywords" content="JamesProxy Proxy, bypass restrictions, web proxy">
 
     <style>
         * {
@@ -562,7 +562,7 @@
                     updateSearchBar(iframe);
                     updatePageTitle(iframe);
                 } else {
-                    document.querySelector(`#${currentTabState.url.replace('petezah://', '')}-page`).classList.add('active');
+                    document.querySelector(`#${currentTabState.url.replace('JamesProxy://', '')}-page`).classList.add('active');
                 }
                 const currentTabIndex = tabIndex;
                 tabHistory = tabHistory.filter(index => index !== currentTabIndex);
@@ -674,13 +674,13 @@
                 }
                 switch (proxifiedUrl) {
                     case "/static/index.html":
-                        return "petezah://newtab";
+                        return "JamesProxy://newtab";
                     case "/static/prox/settings.html":
-                        return "petezah://settings";
+                        return "JamesProxy://settings";
                     default:
-                        return proxifiedUrl.includes("bookmarks") ? "petezah://bookmarks" :
-                            proxifiedUrl.includes("history") ? "petezah://history" :
-                                proxifiedUrl.includes("extensions") ? "petezah://extensions" :
+                        return proxifiedUrl.includes("bookmarks") ? "JamesProxy://bookmarks" :
+                            proxifiedUrl.includes("history") ? "JamesProxy://history" :
+                                proxifiedUrl.includes("extensions") ? "JamesProxy://extensions" :
                                     decodeURI(proxifiedUrl);
                 }
             } catch (e) {
@@ -696,21 +696,21 @@
                 if (!input) return;
                 const iframe = document.querySelector('.tab-iframe.active');
                 let url;
-                if (input.startsWith('petezah://')) {
+                if (input.startsWith('JamesProxy://')) {
                     switch (input) {
-                        case 'petezah://newtab':
+                        case 'JamesProxy://newtab':
                             url = '/static/index.html';
                             break;
-                        case 'petezah://settings':
+                        case 'JamesProxy://settings':
                             url = '/static/prox/settings.html';
                             break;
-                        case 'petezah://bookmarks':
+                        case 'JamesProxy://bookmarks':
                             showBookmarks();
                             return;
-                        case 'petezah://history':
+                        case 'JamesProxy://history':
                             showHistory();
                             return;
-                        case 'petezah://extensions':
+                        case 'JamesProxy://extensions':
                             showExtensions();
                             return;
                         default:
@@ -738,7 +738,7 @@
                 internalPages.forEach(page => page.classList.remove('active'));
                 iframe.src = "/static/index.html";
                 currentTabState = { type: 'iframe', url: '/static/index.html' };
-                document.getElementById('search-input').value = "petezah://newtab";
+                document.getElementById('search-input').value = "JamesProxy://newtab";
                 const activeTab = document.querySelector('.tab.active');
                 activeTab.childNodes[0].textContent = "New Tab";
                 updateHistory("/static/index.html");
@@ -784,7 +784,7 @@
                 internalPages.forEach(page => page.classList.remove('active'));
                 iframe.src = "/static/prox/settings.html";
                 currentTabState = { type: 'iframe', url: '/static/prox/settings.html' };
-                document.getElementById('search-input').value = "petezah://settings";
+                document.getElementById('search-input').value = "JamesProxy://settings";
                 const activeTab = document.querySelector('.tab.active');
                 activeTab.childNodes[0].textContent = "Settings";
                 updateHistory("/static/prox/settings.html");
@@ -832,7 +832,7 @@
                 if (currentTabState.type !== 'iframe') return;
                 const iframe = document.querySelector('.tab-iframe.active');
                 const url = getUnproxifiedUrl(iframe.src);
-                if (url.startsWith('petezah://')) return;
+                if (url.startsWith('JamesProxy://')) return;
                 let title;
                 try {
                     title = iframe.contentDocument?.title || "New Bookmark";
@@ -863,20 +863,20 @@
                 const activeTab = document.querySelector('.tab.active');
                 const internalPages = document.querySelectorAll('.internal-page');
                 internalPages.forEach(page => page.classList.remove('active'));
-                if (url.startsWith('petezah://')) {
+                if (url.startsWith('JamesProxy://')) {
                     switch (url) {
-                        case 'petezah://bookmarks':
+                        case 'JamesProxy://bookmarks':
                             showBookmarks();
                             break;
-                        case 'petezah://history':
+                        case 'JamesProxy://history':
                             showHistory();
                             break;
-                        case 'petezah://extensions':
+                        case 'JamesProxy://extensions':
                             showExtensions();
                             break;
                         default:
-                            iframe.src = mapPetezahUrlToSrc(url);
-                            currentTabState = { type: 'iframe', url: mapPetezahUrlToSrc(url) };
+                            iframe.src = mapJamesProxyUrlToSrc(url);
+                            currentTabState = { type: 'iframe', url: mapJamesProxyUrlToSrc(url) };
                     }
                 } else {
                     const encodedUrl = encodeURI(url);
@@ -891,18 +891,18 @@
             }
         }
 
-        function mapPetezahUrlToSrc(url) {
+        function mapJamesProxyUrlToSrc(url) {
             try {
                 switch (url) {
-                    case 'petezah://newtab':
+                    case 'JamesProxy://newtab':
                         return '/static/index.html';
-                    case 'petezah://settings':
+                    case 'JamesProxy://settings':
                         return '/static/prox/settings.html';
                     default:
                         return url;
                 }
             } catch (e) {
-                console.error('Error mapping Petezah URL:', e);
+                console.error('Error mapping JamesProxy URL:', e);
                 return url;
             }
         }
@@ -919,8 +919,8 @@
                 bookmarksPage.classList.add('active');
 
                 activeTab.childNodes[0].textContent = "Bookmarks";
-                document.getElementById('search-input').value = "petezah://bookmarks";
-                currentTabState = { type: 'internal', url: 'petezah://bookmarks' };
+                document.getElementById('search-input').value = "JamesProxy://bookmarks";
+                currentTabState = { type: 'internal', url: 'JamesProxy://bookmarks' };
 
                 const bookmarkList = bookmarks.map(b => `
                 <li>
@@ -937,7 +937,7 @@
                 <ul>${bookmarkList || '<li>No bookmarks yet.</li>'}</ul>
             `;
 
-                updateHistory("petezah://bookmarks");
+                updateHistory("JamesProxy://bookmarks");
                 toggleMenu();
             } catch (e) {
                 console.error('Error showing bookmarks:', e);
@@ -966,8 +966,8 @@
                 historyPage.classList.add('active');
 
                 activeTab.childNodes[0].textContent = "History";
-                document.getElementById('search-input').value = "petezah://history";
-                currentTabState = { type: 'internal', url: 'petezah://history' };
+                document.getElementById('search-input').value = "JamesProxy://history";
+                currentTabState = { type: 'internal', url: 'JamesProxy://history' };
 
                 const historyList = history.map(h => `
                 <li>
@@ -984,7 +984,7 @@
                 <ul>${historyList || '<li>No history yet.</li>'}</ul>
             `;
 
-                updateHistory("petezah://history");
+                updateHistory("JamesProxy://history");
                 toggleMenu();
             } catch (e) {
                 console.error('Error showing history:', e);
@@ -1104,8 +1104,8 @@
                 extensionsPage.classList.add('active');
 
                 activeTab.childNodes[0].textContent = "Extensions";
-                document.getElementById('search-input').value = "petezah://extensions";
-                currentTabState = { type: 'internal', url: 'petezah://extensions' };
+                document.getElementById('search-input').value = "JamesProxy://extensions";
+                currentTabState = { type: 'internal', url: 'JamesProxy://extensions' };
 
                 const extensionsList = extensions.map(ext => `
                 <div class="extension-card">
@@ -1129,7 +1129,7 @@
                 <div class="extensions-grid">${extensionsList || '<p>No extensions installed.</p>'}</div>
             `;
 
-                updateHistory("petezah://extensions");
+                updateHistory("JamesProxy://extensions");
                 toggleMenu();
             } catch (e) {
                 console.error('Error showing extensions:', e);
@@ -1225,7 +1225,7 @@
         try {
             const initialIframe = document.querySelector('.tab-iframe.active');
             const initialTab = document.querySelector('.tab.active');
-            document.getElementById('search-input').value = "petezah://newtab";
+            document.getElementById('search-input').value = "JamesProxy://newtab";
             updateTabName(initialIframe, initialTab);
 
             document.addEventListener('click', (e) => {
