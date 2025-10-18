@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PeteZah | Proxy</title>
+    <title>JamesProxy | Proxy</title>
     <link rel="icon" href="storage/images/logo-png-removebg-preview.png" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <meta property="og:title" content="PeteZah | Proxy">
+    <meta property="og:title" content="JamesProxy | Proxy">
     <meta property="og:description" content="Next-gen proxy browsing">
     <meta property="og:image" content="/storage/images/logo-png-removebg-preview.png">
-    <meta name="keywords" content="PeteZah Proxy, bypass restrictions, web proxy">
+    <meta name="keywords" content="JamesProxy Proxy, bypass restrictions, web proxy">
 
     <style>
         * {
@@ -587,17 +587,17 @@
         }
         switch (proxifiedUrl) {
             case "/static/index.html":
-                return "petezah://newtab";
+                return "JamesProxy://newtab";
             case "/static/prox/settings.html":
-                return "petezah://settings";
+                return "JamesProxy://settings";
             case "data:text/html,bookmarks":
-                return "petezah://bookmarks";
+                return "JamesProxy://bookmarks";
             case "data:text/html,history":
-                return "petezah://history";
+                return "JamesProxy://history";
             case "data:text/html,extensions":
-                return "petezah://extensions";
+                return "JamesProxy://extensions";
             case "data:text/html,inspect":
-                return "petezah://inspect";
+                return "JamesProxy://inspect";
             default:
                 return proxifiedUrl;
         }
@@ -608,24 +608,24 @@
         if (!input) return;
         const iframe = document.querySelector('.tab-iframe.active');
         let url;
-        if (input.startsWith('petezah://')) {
+        if (input.startsWith('JamesProxy://')) {
             switch (input) {
-                case 'petezah://newtab':
+                case 'JamesProxy://newtab':
                     url = '/static/index.html';
                     break;
-                case 'petezah://settings':
+                case 'JamesProxy://settings':
                     url = '/static/prox/settings.html';
                     break;
-                case 'petezah://bookmarks':
+                case 'JamesProxy://bookmarks':
                     showBookmarks();
                     return;
-                case 'petezah://history':
+                case 'JamesProxy://history':
                     showHistory();
                     return;
-                case 'petezah://extensions':
+                case 'JamesProxy://extensions':
                     showExtensions();
                     return;
-                case 'petezah://inspect':
+                case 'JamesProxy://inspect':
                     openInspect();
                     return;
                 default:
@@ -645,7 +645,7 @@
     function goHome() {
         const iframe = document.querySelector('.tab-iframe.active');
         iframe.src = "/static/index.html";
-        document.getElementById('search-input').value = "petezah://newtab";
+        document.getElementById('search-input').value = "JamesProxy://newtab";
         const activeTab = document.querySelector('.tab.active');
         activeTab.childNodes[0].textContent = "New Tab";
         updateHistory("/static/index.html");
@@ -672,7 +672,7 @@
     function settings() {
         const iframe = document.querySelector('.tab-iframe.active');
         iframe.src = "/static/prox/settings.html";
-        document.getElementById('search-input').value = "petezah://settings";
+        document.getElementById('search-input').value = "JamesProxy://settings";
         const activeTab = document.querySelector('.tab.active');
         activeTab.childNodes[0].textContent = "Settings";
         updateHistory("/static/prox/settings.html");
@@ -703,7 +703,7 @@
     function addBookmark() {
         const iframe = document.querySelector('.tab-iframe.active');
         const url = getUnproxifiedUrl(iframe.src);
-        if (url.startsWith('petezah://')) return; // Don't bookmark internal pages
+        if (url.startsWith('JamesProxy://')) return; // Don't bookmark internal pages
         const title = iframe.contentDocument?.title || "New Bookmark";
         bookmarks.push({ url, title });
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
@@ -719,8 +719,8 @@
     function navigateToBookmark(url) {
         const iframe = document.querySelector('.tab-iframe.active');
         const activeTab = document.querySelector('.tab.active');
-        if (url.startsWith('petezah://')) {
-            iframe.src = mapPetezahUrlToSrc(url);
+        if (url.startsWith('JamesProxy://')) {
+            iframe.src = mapJamesProxyUrlToSrc(url);
         } else {
             iframe.src = `${proxyPrefix}${url}`;
         }
@@ -729,22 +729,22 @@
         updateHistory(url);
     }
 
-    function mapPetezahUrlToSrc(url) {
+    function mapJamesProxyUrlToSrc(url) {
         switch (url) {
-            case 'petezah://newtab':
+            case 'JamesProxy://newtab':
                 return '/static/index.html';
-            case 'petezah://settings':
+            case 'JamesProxy://settings':
                 return '/static/prox/settings.html';
-            case 'petezah://bookmarks':
+            case 'JamesProxy://bookmarks':
                 showBookmarks();
                 return 'data:text/html,bookmarks';
-            case 'petezah://history':
+            case 'JamesProxy://history':
                 showHistory();
                 return 'data:text/html,history';
-            case 'petezah://extensions':
+            case 'JamesProxy://extensions':
                 showExtensions();
                 return 'data:text/html,extensions';
-            case 'petezah://inspect':
+            case 'JamesProxy://inspect':
                 openInspect();
                 return 'data:text/html,inspect';
             default:
@@ -756,7 +756,7 @@
         const iframe = document.querySelector('.tab-iframe.active');
         const activeTab = document.querySelector('.tab.active');
         activeTab.childNodes[0].textContent = "Bookmarks";
-        document.getElementById('search-input').value = "petezah://bookmarks";
+        document.getElementById('search-input').value = "JamesProxy://bookmarks";
         const bookmarkList = bookmarks.map((b, index) => `
             <li>
                 <a href="#" onclick="parent.navigateToBookmark('${b.url.replace(/'/g, "\\'")}')">${b.title}</a>
@@ -807,7 +807,7 @@
         const iframe = document.querySelector('.tab-iframe.active');
         const activeTab = document.querySelector('.tab.active');
         activeTab.childNodes[0].textContent = "History";
-        document.getElementById('search-input').value = "petezah://history";
+        document.getElementById('search-input').value = "JamesProxy://history";
         const historyList = history.map(h => `
             <li>
                 <a href="#" onclick="parent.navigateToBookmark('${h.url.replace(/'/g, "\\'")}')">${h.title}</a>
@@ -882,7 +882,7 @@
         const iframe = document.querySelector('.tab-iframe.active');
         const activeTab = document.querySelector('.tab.active');
         activeTab.childNodes[0].textContent = "Extensions";
-        document.getElementById('search-input').value = "petezah://extensions";
+        document.getElementById('search-input').value = "JamesProxy://extensions";
         const extensionsList = extensions.map(ext => `
             <div class="extension-card">
                 <img src="${ext.icon}" alt="${ext.name}">
@@ -936,7 +936,7 @@
         const iframe = document.querySelector('.tab-iframe.active');
         const activeTab = document.querySelector('.tab.active');
         activeTab.childNodes[0].textContent = "Inspect";
-        document.getElementById('search-input').value = "petezah://inspect";
+        document.getElementById('search-input').value = "JamesProxy://inspect";
         // Simulate a basic DOM inspector
         const sampleDomTree = `
             <ul>
@@ -1030,7 +1030,7 @@
     // Initialize
     const initialIframe = document.querySelector('.tab-iframe.active');
     const initialTab = document.querySelector('.tab.active');
-    document.getElementById('search-input').value = "petezah://newtab";
+    document.getElementById('search-input').value = "JamesProxy://newtab";
     updateTabName(initialIframe, initialTab);
 
     document.addEventListener('click', (e) => {
